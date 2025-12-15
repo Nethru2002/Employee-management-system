@@ -41,8 +41,6 @@ const UserSchema = new Schema<IUser>(
 );
 
 // 3. Pre-save hook
-// FIX: We type 'next' as 'any' to prevent TS from thinking it is an Options object.
-// We also cast 'this' inside to IUser.
 UserSchema.pre('save', async function (next: any) {
   const user = this as IUser;
 
