@@ -4,20 +4,19 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import authRoutes from './routes/auth';
 
-// Load env vars
 dotenv.config();
 
 const app = express();
 
-// Security Middleware
-app.use(helmet()); // Sets HTTP Security headers
+app.use(helmet());
 app.use(cors({
-    origin: 'http://localhost:5173', // Frontend URL
+    origin: 'http://localhost:5173',
     credentials: true
 }));
 app.use(express.json());
-app.use(morgan('dev')); // Logging
+app.use(morgan('dev'));
 
 // Database Connection
 const connectDB = async () => {
@@ -30,12 +29,13 @@ const connectDB = async () => {
     }
 };
 
-// Routes (Placeholder)
+// Routes
+app.use('/api/auth', authRoutes);
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-// Server Setup
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {

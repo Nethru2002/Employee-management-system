@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, CallbackError } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 // 1. Define Interface
@@ -40,21 +40,17 @@ const UserSchema = new Schema<IUser>(
   { timestamps: true }
 );
 
-// 3. Pre-save hook
-UserSchema.pre('save', async function (next: any) {
+UserSchema.pre('save', async function () {
   const user = this as IUser;
 
+  // If password is not modified, simply return (exit function)
   if (!user.isModified('password')) {
-    return next();
+    return;
   }
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    next();
-  } catch (error) {
-    next(error);
-  }
+  // Hash the password
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
 });
 
 // 4. Compare Password Method
