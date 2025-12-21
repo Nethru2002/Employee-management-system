@@ -5,11 +5,14 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth';
+import departmentRoutes from './routes/department';
+import employeeRoutes from './routes/employee';
 
 dotenv.config();
 
 const app = express();
 
+// Middleware
 app.use(helmet());
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -17,6 +20,10 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(morgan('dev'));
+
+// Static Folder for Image Uploads
+// This allows the frontend to access images at: http://localhost:5000/uploads/filename.jpg
+app.use(express.static('public'));
 
 // Database Connection
 const connectDB = async () => {
@@ -31,6 +38,8 @@ const connectDB = async () => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/departments', departmentRoutes);
+app.use('/api/employees', employeeRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');

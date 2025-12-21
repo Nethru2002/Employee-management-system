@@ -2,6 +2,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminSummary from './components/dashboard/AdminSummary';
+import DepartmentList from './components/departments/DepartmentList';
+import AddDepartment from './components/departments/AddDepartment';
+import EditDepartment from './components/departments/EditDepartment';
+import EmployeeList from './components/employee/List';
+import AddEmployee from './components/employee/Add';
+import EditEmployee from './components/employee/Edit';
 import { AuthProvider } from './context/authContext';
 import PrivateRoutes from './utils/PrivateRoutes';
 
@@ -10,22 +16,26 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public Route */}
           <Route path="/" element={<Navigate to="/admin-dashboard" />} />
           <Route path="/login" element={<Login />} />
           
-          {/* Protected Routes */}
           <Route path="/admin-dashboard" element={
             <PrivateRoutes>
                <AdminDashboard />
             </PrivateRoutes>
           }>
-             {/* Nested Routes inside Dashboard */}
              <Route index element={<AdminSummary />} />
+
+             {/* Department Routes */}
+             <Route path="departments" element={<DepartmentList />} />
+             <Route path="add-department" element={<AddDepartment />} />
+             <Route path="department/:id" element={<EditDepartment />} />
+
+             {/* Employee Routes */}
+             <Route path="employees" element={<EmployeeList />} />
+             <Route path="add-employee" element={<AddEmployee />} />
+             <Route path="employees/:id" element={<EditEmployee />} />
              
-             {/* We will build these next! */}
-             <Route path="employees" element={<div className='text-white'>Employee List Coming Soon</div>} />
-             <Route path="departments" element={<div className='text-white'>Department List Coming Soon</div>} />
           </Route>
 
         </Routes>
