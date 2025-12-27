@@ -32,8 +32,7 @@ const List = () => {
           setFilterEmployees(response.data.employees);
         }
       } catch {
-        // Handle error silently or add alert if needed
-        // alert("Error fetching employees");
+        // Handle error silently
       } finally {
         setLoading(false);
       }
@@ -53,7 +52,6 @@ const List = () => {
         try {
             const response = await api.delete(`/api/employees/${id}`);
             if(response.data.success) {
-                // Update UI instantly
                 const updated = employees.filter(emp => emp._id !== id);
                 setEmployees(updated);
                 setFilterEmployees(updated);
@@ -128,6 +126,16 @@ const List = () => {
                         >
                             <Pencil className="w-4 h-4" />
                         </Link>
+                        
+                        {/* New Salary Button */}
+                        <Link 
+                            to={`/admin-dashboard/salary/${emp._id}`}
+                            className="bg-yellow-600 hover:bg-yellow-700 text-white p-2 rounded transition flex items-center justify-center min-w-[32px]"
+                            title="Salary History"
+                        >
+                             <span className="text-md font-bold text-white">$</span>
+                        </Link>
+
                         <button 
                             onClick={() => handleDelete(emp._id)}
                             className="bg-red-600 hover:bg-red-700 text-white p-2 rounded transition"

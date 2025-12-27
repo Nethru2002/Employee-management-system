@@ -10,6 +10,11 @@ import AddEmployee from './components/employee/Add';
 import EditEmployee from './components/employee/Edit';
 import { AuthProvider } from './context/authContext';
 import PrivateRoutes from './utils/PrivateRoutes';
+import AddSalary from './components/salary/Add';
+import ViewSalary from './components/salary/View';
+import LeaveList from './components/leave/List';
+import AddLeave from './components/leave/Add';
+import LeaveDetail from './components/leave/Detail';
 
 function App() {
   return (
@@ -35,6 +40,14 @@ function App() {
              <Route path="employees" element={<EmployeeList />} />
              <Route path="add-employee" element={<AddEmployee />} />
              <Route path="employees/:id" element={<EditEmployee />} />
+
+             <Route path="salary" element={<Navigate to="/admin-dashboard/salary/add" />} />
+             <Route path="salary/add" element={<AddSalary />} />
+             <Route path="salary/:id" element={<ViewSalary />} />
+
+             <Route path="leaves" element={<LeaveList />} />
+             <Route path="leave/add" element={<AddLeave />} />
+             <Route path="leave/:id" element={<LeaveDetail />} />
              
           </Route>
 

@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 import authRoutes from './routes/auth';
 import departmentRoutes from './routes/department';
 import employeeRoutes from './routes/employee';
+import salaryRoutes from './routes/salary';
+import leaveRoutes from './routes/leave';
 
 dotenv.config();
 
@@ -40,6 +42,8 @@ const connectDB = async () => {
 app.use('/api/auth', authRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/employees', employeeRoutes);
+app.use('/api/salary', salaryRoutes);
+app.use('/api/leave', leaveRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');
